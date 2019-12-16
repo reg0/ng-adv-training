@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
+import { filter, take, takeWhile, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,16 @@ import { ajax } from 'rxjs/ajax';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'rxjs';
+  filteringOperators() {
+    interval(200)
+    .pipe(
+      take(10),
+      takeWhile(it => it < 6),
+      takeUntil(fromEvent(document, 'click')), // reacts to observable!
+      filter(it => !!(it % 2)),
+    )
+    .subscribe(console.log);
+  }
 
   subjectExamples() {
     const subject = new Subject();
@@ -58,12 +68,13 @@ export class AppComponent {
     );
   }
 
+  title = 'rxjs';
   constructor(private http: HttpClient) {
     /* base */
     // this.observableAndObserver();
     // this.observableExamples();
-    this.subjectExamples();
-    // this.filteringOperators();
+    // this.subjectExamples();
+    this.filteringOperators();
     // this.transformationOperators();
     // this.combinationOperators();
     // this.customOperator();
