@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { filter, take, takeWhile, takeUntil, map, mapTo } from 'rxjs/operators';
+import { filter, take, takeWhile, takeUntil, map, mapTo, share } from 'rxjs/operators';
 const API = 'https://api.debugger.pl';
 
 @Component({
@@ -11,6 +11,14 @@ const API = 'https://api.debugger.pl';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  hotvscold() {
+    const req$ = ajax(API + '/items').pipe(share());
+
+    req$.subscribe(console.log);
+    req$.subscribe(console.log);
+    req$.subscribe(console.log);
+  }
+
   customOperator() {
     const myPipe = source => Observable.create((obs) => {
       source.subscribe(
@@ -122,10 +130,10 @@ export class AppComponent {
     // this.filteringOperators();
     // this.transformationOperators();
     // this.combinationOperators();
-    this.customOperator();
+    // this.customOperator();
 
     /* mechanism */
-    // this.hotvscold();
+    this.hotvscold();
     // this.higherOrder()
 
     /* tasks */
