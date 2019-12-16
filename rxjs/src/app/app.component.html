@@ -1,1 +1,7 @@
 <h1>RxJS</h1>
+{{ form.value | json }}
+{{ form.valid }}
+<form [formGroup]="form">
+  <input type="text" formControlName="username">
+  {{ form.get('username').errors | json }}
+</form>

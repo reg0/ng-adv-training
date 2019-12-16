@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { filter, take, takeWhile, takeUntil, map, mapTo, share, delay, concatAll, concatMap, distinctUntilChanged } from 'rxjs/operators';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 const API = 'https://api.debugger.pl';
 
 @Component({
@@ -11,6 +12,17 @@ const API = 'https://api.debugger.pl';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  form: FormGroup;
+  createForm() {
+    this.form = new FormGroup({
+      username: new FormControl(
+        null,
+        [Validators.required, Validators.email],
+        []
+      )
+    });
+  }
+
   helloWorld() {
     const text = 'hello world!';
     from(text.split(''))
@@ -165,10 +177,10 @@ export class AppComponent {
     // this.higherOrder();
 
     /* tasks */
-    this.helloWorld();
+    // this.helloWorld();
     // this.mousemoveAndClickCount();
     // this.notifications();
-    // this.createForm();
+    this.createForm();
   }
 
 }
