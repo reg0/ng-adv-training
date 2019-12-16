@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable } from 'rxjs';
+import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable, timer } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { filter, take, takeWhile, takeUntil, map, mapTo, share, delay, concatAll, concatMap, distinctUntilChanged } from 'rxjs/operators';
+import { filter, take, takeWhile, takeUntil, map, mapTo, share, delay, concatAll, concatMap, distinctUntilChanged, switchMapTo } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 const API = 'https://api.debugger.pl';
 
@@ -15,8 +15,14 @@ export class AppComponent {
   form: FormGroup;
 
   checkUser(control: AbstractControl): Observable<any> {
-    return this.http.get(API + '/does-it-exist?username=' + control.value)
-    .pipe(map((resp: any) => resp.ok ? null : resp));
+    return timer(1000).pipe(
+      switchMapTo(
+        this.http.get(API + '/does-it-exist?username=' + control.value)
+        .pipe(
+          map((resp: any) => resp.ok ? null : resp)
+        )
+      )
+    );
   }
 
   createForm() {
