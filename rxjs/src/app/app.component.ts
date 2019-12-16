@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject } from 'rxjs';
+import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { filter, take, takeWhile, takeUntil } from 'rxjs/operators';
+import { filter, take, takeWhile, takeUntil, map, mapTo } from 'rxjs/operators';
+const API = 'https://api.debugger.pl';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,38 @@ import { filter, take, takeWhile, takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  combinationOperators() {
+    forkJoin(
+      ajax(API + '/workers'),
+      ajax(API + '/items'),
+    )
+    .subscribe(resps => {
+      // debugger;
+    });
+
+    combineLatest(
+      fromEvent(document, 'mousemove').pipe(map(({clientX, clientY}: MouseEvent) => {
+        // const {clientX, clientY} = it;
+        return JSON.stringify({clientX, clientY});
+      })),
+      fromEvent(document, 'click').pipe(map((it: MouseEvent) => {
+        const {clientX, clientY} = it;
+        return 'c' + JSON.stringify({clientX, clientY});
+      }))
+    )
+    .subscribe(val => {
+      console.log(val);
+    });
+  }
+
+  transformationOperators() {
+    interval(300)
+    .pipe(
+      map(it => it + 2000),
+      mapTo(200)
+    )
+    // .subscribe(console.log)
+  }
   filteringOperators() {
     interval(200)
     .pipe(
@@ -74,9 +107,9 @@ export class AppComponent {
     // this.observableAndObserver();
     // this.observableExamples();
     // this.subjectExamples();
-    this.filteringOperators();
+    // this.filteringOperators();
     // this.transformationOperators();
-    // this.combinationOperators();
+    this.combinationOperators();
     // this.customOperator();
 
     /* mechanism */
