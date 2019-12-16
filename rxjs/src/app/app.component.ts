@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest } from 'rxjs';
+import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { filter, take, takeWhile, takeUntil, map, mapTo } from 'rxjs/operators';
 const API = 'https://api.debugger.pl';
@@ -11,6 +11,18 @@ const API = 'https://api.debugger.pl';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  customOperator() {
+    const myPipe = source => Observable.create((obs) => {
+      source.subscribe(
+          (val) => obs.next(val * 2),
+          (err) => obs.error(err),
+          () => obs.complete()
+      )
+    });
+
+    of(1, 2, 3).pipe(map(it => it + 100), myPipe).subscribe(console.log);
+  }
+
   combinationOperators() {
     forkJoin(
       ajax(API + '/workers'),
@@ -109,8 +121,8 @@ export class AppComponent {
     // this.subjectExamples();
     // this.filteringOperators();
     // this.transformationOperators();
-    this.combinationOperators();
-    // this.customOperator();
+    // this.combinationOperators();
+    this.customOperator();
 
     /* mechanism */
     // this.hotvscold();
