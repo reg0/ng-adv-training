@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, fromEvent, from, interval } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,17 @@ import { of } from 'rxjs';
 })
 export class AppComponent {
   title = 'rxjs';
+
+  observableExamples() {
+    fromEvent(document.body, 'mousemove').subscribe(console.log);
+
+    const people = ['Joe', 'Mike', 'Bob', 'Kate'];
+    from(people).subscribe(console.log);
+
+    ajax('https://api.debugger.pl/workers').subscribe(console.log);
+
+    // interval(300).subscribe(console.log)
+  }
 
   observableAndObserver() {
     of(1, 2, 3).subscribe(
@@ -20,8 +32,8 @@ export class AppComponent {
 
   constructor(private http: HttpClient) {
     /* base */
-    this.observableAndObserver();
-    // this.observableExamples();
+    // this.observableAndObserver();
+    this.observableExamples();
     // this.subjectExamples();
     // this.filteringOperators();
     // this.transformationOperators();
