@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { filter, take, takeWhile, takeUntil, map, mapTo, share, delay, concatAll, concatMap } from 'rxjs/operators';
+import { filter, take, takeWhile, takeUntil, map, mapTo, share, delay, concatAll, concatMap, distinctUntilChanged } from 'rxjs/operators';
 const API = 'https://api.debugger.pl';
 
 @Component({
@@ -11,6 +11,19 @@ const API = 'https://api.debugger.pl';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  helloWorld() {
+    const text = 'hello world!';
+    from(text.split(''))
+    .pipe(
+      map(val => val === ' ' ? '_' : val),
+      filter(val => /\S/.test(val)),
+      distinctUntilChanged(),
+      map(val => of(val).pipe(delay(300))),
+      concatAll(),
+    )
+    .subscribe(console.log);
+  }
+
   higherOrder() {
     of(1, 2, 3)
     .pipe(
@@ -149,10 +162,10 @@ export class AppComponent {
 
     /* mechanism */
     // this.hotvscold();
-    this.higherOrder()
+    // this.higherOrder();
 
     /* tasks */
-    // this.helloWorld();
+    this.helloWorld();
     // this.mousemoveAndClickCount();
     // this.notifications();
     // this.createForm();
