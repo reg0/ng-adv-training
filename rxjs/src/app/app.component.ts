@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,11 @@ export class AppComponent {
   title = 'rxjs';
 
   observableAndObserver() {
-    throw new Error("Method not implemented.");
+    of(1, 2, 3).subscribe(
+      console.log,
+      console.error,
+      () => console.log('koniec')
+    );
   }
 
   constructor(private http: HttpClient) {
