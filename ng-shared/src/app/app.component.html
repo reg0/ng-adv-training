@@ -1,5 +1,11 @@
-<app-data-grid>
-  <ng-template let-ctx>
-    <h1>Welcome at {{ctx.date}} </h1>
+<app-data-grid [data]="data$|async" [headers]="['title', 'price', 'category', 'img', 'actions']">
+  <ng-template let-item>
+    <td>{{item.title}}</td>
+    <td>{{item.price}}</td>
+    <td>{{item.category}}</td>
+    <td><img src="{{item.imgSrc}}" height="100"/></td>
+    <td>
+      <button (click)="onClick(item)">more</button>
+    </td>
   </ng-template>
 </app-data-grid>
