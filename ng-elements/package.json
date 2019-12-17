@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --output-hashing=none",
+    "package": "cd dist/ng-elements && cat runtime.js polyfills.js scripts.js main.js > ./../../wc/ng-elements.js",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
