@@ -1,1 +1,7 @@
 <p>items works!</p>
+<app-data-grid [data]="data$|async" [headers]="['title', 'price']">
+    <ng-template let-item>
+        <td>{{item.title}}</td>
+        <td>{{item.price}}</td>
+    </ng-template>
+</app-data-grid>
