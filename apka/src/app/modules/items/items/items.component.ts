@@ -17,4 +17,8 @@ export class ItemsComponent implements OnInit {
     this.data$ = this.items.fetch();
   }
 
+  buy(item: ItemModel) {
+    alert('bought: ' + item.title);
+  }
+
 }

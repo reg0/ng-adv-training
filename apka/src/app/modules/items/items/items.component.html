@@ -1,7 +1,10 @@
 <p>items works!</p>
+<router-outlet></router-outlet>
 <app-data-grid [data]="data$|async" [headers]="['title', 'price']">
     <ng-template let-item>
         <td>{{item.title}}</td>
         <td>{{item.price}}</td>
+        <td><button class="mat-raised-button" [routerLink]="['/items', item.id]">more</button></td>
+        <td><button class="mat-raised-button" (click)="buy(item)">buy</button></td>
     </ng-template>
 </app-data-grid>
