@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 
 export interface HttpServiceModel {
     fetch(filters?: { [key: string]: any }): Observable<any>;
-    get(id: number): Observable<any>;
+    get(id: string): Observable<any>;
     add(item): Observable<any>;
     update(item): Observable<any>;
     remove(id: number): Observable<any>;

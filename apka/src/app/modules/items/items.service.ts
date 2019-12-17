@@ -12,8 +12,8 @@ export class ItemsService implements HttpServiceModel {
     fetch(filters?: { [key: string]: any; }): Observable<ItemModel[]> {
         return this.httpClient.get(Api.ITEMS_END_POINT).pipe(map((it: HttpResponseModel) => it.data));
     }
-    get(id: number): Observable<any> {
-        throw new Error("Method not implemented.");
+    get(id: string): Observable<any> {
+        return this.httpClient.get(`${Api.ITEMS_END_POINT}/${id}`).pipe(map((it: HttpResponseModel) => it.data));
     }
     add(item: any): Observable<any> {
         throw new Error("Method not implemented.");
