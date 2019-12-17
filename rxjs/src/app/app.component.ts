@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable, timer } from 'rxjs';
+import { of, fromEvent, from, interval, Subject, BehaviorSubject, ReplaySubject, forkJoin, combineLatest, Observable, timer, merge } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { filter, take, takeWhile, takeUntil, map, mapTo, share, delay, concatAll, concatMap, distinctUntilChanged, switchMapTo } from 'rxjs/operators';
+import { filter, take, takeWhile, takeUntil, map, mapTo, share, delay, concatAll, concatMap, distinctUntilChanged, switchMapTo, groupBy, mergeMap, scan, throttleTime } from 'rxjs/operators';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 const API = 'https://api.debugger.pl';
 
@@ -14,10 +14,25 @@ const API = 'https://api.debugger.pl';
 export class AppComponent {
   form: FormGroup;
 
+  fatExample() {
+    merge(
+      fromEvent(document, 'click'),
+      fromEvent(document, 'mousemove')
+    )
+      .pipe(
+        groupBy((val) => val.type),
+        mergeMap((g) => g.pipe(
+          scan((acc, item) => ({ ...acc, [g.key]: ++acc[g.key] || 0 }), {}),
+          throttleTime(500)
+        ))
+      )
+      .subscribe(console.log)
+  }
+
   checkUser(control: AbstractControl): Observable<any> {
     return timer(1000).pipe(
       switchMapTo(
-        this.http.get(API + '/does-it-exist?username=' + control.value)
+        this.http.get(API + '/does-it-exist', { params: { username: control.value }})
         .pipe(
           map((resp: any) => resp.ok ? null : resp)
         )
@@ -192,7 +207,8 @@ export class AppComponent {
     // this.helloWorld();
     // this.mousemoveAndClickCount();
     // this.notifications();
-    this.createForm();
+    // this.createForm();
+    this.fatExample();
   }
 
 }
