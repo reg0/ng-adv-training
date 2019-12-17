@@ -8,6 +8,9 @@ import { DataGridComponent } from './components/data-grid/data-grid.component';
   declarations: [DataGridComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [
+    DataGridComponent,
+  ],
 })
 export class SharedModule { }
