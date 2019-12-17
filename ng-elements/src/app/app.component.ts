@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ng-elements';
+  @ViewChild('container', {static: true}) container;
 
-  popup(data) {
-    alert(JSON.stringify(data));
+  add(data) {
+    this.container.nativeElement.innerHTML += `<y-contact-card name="${data.name}"></y-contact-card>`
   }
 }
