@@ -21,6 +21,10 @@ export class FormGeneratorComponent implements OnInit {
     }
   }
 
+  ngOnInit() {
+    this.form = this.fb.group({});
+  }
+
   createForm(formConfig: FieldConfig[]) {
     formConfig
       .filter(it => !['button', 'submit'].includes(it.type))
@@ -44,11 +48,14 @@ export class FormGeneratorComponent implements OnInit {
       if (fn in Validators) {
         return param !== 'null' ? Validators[fn](param) : Validators[fn];
       }
-    })
+    });
   }
 
-  ngOnInit() {
-    this.form = this.fb.group({});
+  onSubmit() {
+    if (this.form.valid) {
+      debugger;
+    } else {
+      console.warn('invaild');
+    }
   }
-
 }

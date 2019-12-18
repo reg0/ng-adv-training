@@ -1,5 +1,5 @@
 {{form.value|json}}
-<form [formGroup]="form" *ngIf="formConfig">
+<form (submit)="onSubmit()" [formGroup]="form" *ngIf="formConfig">
     <ng-container 
         *ngFor="let fieldConfig of formConfig" 
         [appFieldGenerator]="{form: form, config: fieldConfig}"
