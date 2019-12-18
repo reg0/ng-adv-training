@@ -1,1 +1,6 @@
-<p>form-input-field works!</p>
+<label [formGroup]="form">
+    {{config.label}}
+    <input type="text" [formControlName]="config.name" placeholder="{{config.placeholder}}"/>
+</label>
+{{form.get(config.name)?.errors|json}}
+<hr />

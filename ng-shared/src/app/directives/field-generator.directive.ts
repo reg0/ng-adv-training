@@ -22,6 +22,8 @@ export class FieldGeneratorDirective {
 
   @Input() set appFieldGenerator({config, form}: {config: FieldConfig, form: FormGroup}) {
     const factory = this.resolver.resolveComponentFactory(fields[config.type]);
-    this.container.createComponent(factory);
+    const c = this.container.createComponent<any>(factory);
+    c.instance.form = form;
+    c.instance.config = config;
   }
 }

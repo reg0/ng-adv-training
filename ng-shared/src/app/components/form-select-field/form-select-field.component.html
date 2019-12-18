@@ -1,1 +1,9 @@
-<p>form-select-field works!</p>
+<label [formGroup]="form">
+    {{config.label}}
+    <select [formControlName]="config.name">
+        <option></option>
+        <option *ngFor="let o of config.options">{{o}}</option>
+    </select>
+</label>
+{{form.get(config.name)?.errors|json}}
+<hr />
