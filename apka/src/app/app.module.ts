@@ -19,6 +19,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
+import { CartModule } from './modules/cart/cart.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AppEffects } from './app.effects';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CartModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
