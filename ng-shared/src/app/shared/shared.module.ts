@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormButtonFieldComponent } from '../components/form-button-field/form-button-field.component';
 import { FormInputFieldComponent } from '../components/form-input-field/form-input-field.component';
 import { FormSelectFieldComponent } from '../components/form-select-field/form-select-field.component';
+import { FieldGeneratorDirective } from '../directives/field-generator.directive';
 
 
 
@@ -16,6 +17,7 @@ import { FormSelectFieldComponent } from '../components/form-select-field/form-s
     FormButtonFieldComponent,
     FormInputFieldComponent,
     FormSelectFieldComponent,
+    FieldGeneratorDirective,
   ],
   imports: [
     CommonModule,
