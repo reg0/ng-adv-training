@@ -17,6 +17,9 @@ const cartReducer = createReducer(
   on(CartActions.loadCarts, state => state),
   on(CartActions.loadCartsSuccess, (state, action) => state),
   on(CartActions.loadCartsFailure, (state, action) => state),
+  on(CartActions.addToCart, (state, {data}) => {
+    return {...state, data};
+  }),
 
 );
 
