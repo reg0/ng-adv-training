@@ -25,9 +25,9 @@ const cartReducer = createReducer(
   }),
   on(CartActions.loadCartsFailure, (state, action) => state),
   on(CartActions.addToCart, (state, {data}) => {
-    return cartAdapter.upsertOne(data, {...state, loading: true});
+    const found = state.entities[data.id];
+    return cartAdapter.upsertOne({...data, count: found ? found.count + data.count : data.count}, {...state, loading: true});
   }),
-
 );
 
 export function reducer(state: State | undefined, action: Action) {
