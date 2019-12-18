@@ -1,1 +1,7 @@
 <p>cart works!</p>
+<app-data-grid [data]="data$|async">
+    <ng-template let-cartItem>
+        <td>{{cartItem.title}}</td>
+        <td>{{cartItem.count}}</td>
+    </ng-template>
+</app-data-grid>
