@@ -19,3 +19,7 @@ export const addToCart = createAction(
   '[Cart] Add to cart',
   props<{ data: CartItemModel }>()
 );
+
+export const updateStorageSuccess = createAction(
+  '[Cart] Update Storage Success'
+);

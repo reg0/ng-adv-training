@@ -19,7 +19,7 @@ export const initialState: State = cartAdapter.getInitialState({
 const cartReducer = createReducer(
   initialState,
 
-  on(CartActions.loadCarts, state => state),
+  on(CartActions.loadCarts, state => ({...state, loading: true})),
   on(CartActions.loadCartsSuccess, (state, action) => {
     return cartAdapter.addAll(action.data, {...state, loading: false, loaded: true});
   }),
@@ -28,6 +28,7 @@ const cartReducer = createReducer(
     const found = state.entities[data.id];
     return cartAdapter.upsertOne({...data, count: found ? found.count + data.count : data.count}, {...state, loading: true});
   }),
+  on(CartActions.updateStorageSuccess, state => ({...state, loading: false})),
 );
 
 export function reducer(state: State | undefined, action: Action) {

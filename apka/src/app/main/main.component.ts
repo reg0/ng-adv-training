@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { selectCartCount } from '../modules/cart/store/cart.selectors';
+import { loadCarts } from '../modules/cart/store/cart.actions';
 
 @Component({
   selector: 'app-main',
@@ -23,6 +24,7 @@ export class MainComponent {
     private breakpointObserver: BreakpointObserver,
     private store: Store<any>,
   ) {
+    this.store.dispatch(loadCarts());
     this.store.subscribe(console.log);
     this.cartCount$ = this.store.select(selectCartCount);
   }
