@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FieldConfig } from 'src/app/utils/models';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-form-generator',
@@ -25,8 +25,26 @@ export class FormGeneratorComponent implements OnInit {
     formConfig
       .filter(it => !['button', 'submit'].includes(it.type))
       .forEach(fieldConfig => {
-        this.form.addControl(fieldConfig.name, this.fb.control(fieldConfig.value));
+        this.form.addControl(
+          fieldConfig.name,
+          this.fb.control(
+            fieldConfig.value,
+            this.getValidators(fieldConfig.validation)
+          )
+        );
       });
+  }
+
+  getValidators(validation: Object[]) {
+    if (!validation) {
+      return;
+    }
+    return validation.map((validator: Object) => {
+      const [fn, param] = Object.entries(validator)[0];
+      if (fn in Validators) {
+        return param !== 'null' ? Validators[fn](param) : Validators[fn];
+      }
+    })
   }
 
   ngOnInit() {
