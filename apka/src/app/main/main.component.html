@@ -21,7 +21,7 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>apka</span>
-      <a mat-raised-button routerLink="cart">cart</a>
+      <a mat-raised-button routerLink="cart">cart {{cartCount$|async}}</a>
     </mat-toolbar>
     <!-- Add Content Here -->
     <mat-card>

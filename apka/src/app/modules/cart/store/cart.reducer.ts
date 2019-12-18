@@ -20,7 +20,9 @@ const cartReducer = createReducer(
   initialState,
 
   on(CartActions.loadCarts, state => state),
-  on(CartActions.loadCartsSuccess, (state, action) => state),
+  on(CartActions.loadCartsSuccess, (state, action) => {
+    return cartAdapter.addAll(action.data, {...state, loading: false, loaded: true});
+  }),
   on(CartActions.loadCartsFailure, (state, action) => state),
   on(CartActions.addToCart, (state, {data}) => {
     return cartAdapter.upsertOne(data, {...state, loading: true});
