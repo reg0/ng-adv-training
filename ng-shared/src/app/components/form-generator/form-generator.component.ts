@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { FieldConfig } from 'src/app/utils/models';
 
 @Component({
   selector: 'app-form-generator',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./form-generator.component.scss']
 })
 export class FormGeneratorComponent implements OnInit {
+
+  @Input()
+  formConfig: FieldConfig[];
 
   constructor() { }
 

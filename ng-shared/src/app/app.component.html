@@ -1,3 +1,6 @@
+<app-form-generator [formConfig]="formConfig$|async"></app-form-generator>
+
+<hr/>
 <app-data-grid [data]="data$|async" [headers]="['title', 'price', 'category', 'img', 'actions']">
   <ng-template let-item>
     <td>{{item.title}}</td>

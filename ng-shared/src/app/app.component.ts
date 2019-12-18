@@ -11,6 +11,7 @@ import { map } from "rxjs/operators";
 export class AppComponent {
   title = 'ng-shared';
   data$: any;
+  formConfig$: any;
 
   onClick(item) {
     alert(item.title);
@@ -18,5 +19,6 @@ export class AppComponent {
 
   constructor(private http: HttpClient) {
     this.data$ = this.http.get(Api.ITEMS_END_POINT).pipe(map((it: any) => it.data));
+    this.formConfig$ = this.http.get(Api.FORM_CONFIG_END_POINT).pipe(map((it: any) => it.data));
   }
 }
