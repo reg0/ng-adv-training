@@ -1,5 +1,8 @@
 <form [formGroup]="form" *ngIf="formConfig">
-    <ng-container [appFieldGenerator]="{form: form, config: formConfig}">
+    <ng-container 
+        *ngFor="let fieldConfig of formConfig" 
+        [appFieldGenerator]="{form: form, config: fieldConfig}"
+    >
 
     </ng-container>
 </form>

@@ -30,5 +30,6 @@ import { FieldGeneratorDirective } from '../directives/field-generator.directive
     FormInputFieldComponent,
     FormSelectFieldComponent,
   ],
+  entryComponents: [FormInputFieldComponent, FormSelectFieldComponent, FormButtonFieldComponent],
 })
 export class SharedModule { }

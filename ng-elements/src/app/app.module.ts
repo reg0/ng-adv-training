@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, Injector, DoBootstrap } from '@angular/core';
+import { NgModule, Injector, DoBootstrap, ApplicationRef } from '@angular/core';
 
 import { ContactCardComponent } from './contact-card/contact-card.component';
 import { FormsModule } from "@angular/forms";
@@ -16,7 +16,7 @@ import { createCustomElement } from "@angular/elements";
   providers: [],
 })
 export class AppModule implements DoBootstrap {
-  ngDoBootstrap(appRef: import("@angular/core").ApplicationRef): void {
+  ngDoBootstrap(appRef: ApplicationRef): void {
     const el = createCustomElement(ContactCardComponent, {
       injector: this.injector
     });
