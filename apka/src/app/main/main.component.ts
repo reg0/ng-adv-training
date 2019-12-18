@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { selectCartCount } from '../modules/cart/store/cart.selectors';
+import { selectCartCount, selectCartLoading } from '../modules/cart/store/cart.selectors';
 import { loadCarts } from '../modules/cart/store/cart.actions';
 
 @Component({
@@ -19,6 +19,7 @@ export class MainComponent {
       shareReplay()
     );
   cartCount$: Observable<number>;
+  loading$: Observable<boolean>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -27,5 +28,6 @@ export class MainComponent {
     this.store.dispatch(loadCarts());
     this.store.subscribe(console.log);
     this.cartCount$ = this.store.select(selectCartCount);
+    this.loading$ = this.store.select(selectCartLoading);
   }
 }
