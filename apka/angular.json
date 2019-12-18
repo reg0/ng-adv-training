@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "apka"
+  "defaultProject": "apka",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
